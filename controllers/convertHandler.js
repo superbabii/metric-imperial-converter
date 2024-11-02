@@ -1,8 +1,8 @@
 function ConvertHandler() {
-  this.getNum = function(input) {
+  this.getNum = function (input) {
     const result = input.match(/^[\d./]+/) || ["1"]; // Default to 1 if no number is provided
     const number = result[0];
-    
+
     try {
       const evaluated = eval(number); // Evaluates fractions like "1/2" or "2.5/6"
       return evaluated;
@@ -11,10 +11,12 @@ function ConvertHandler() {
     }
   };
 
-  this.getUnit = function(input) {
+  this.getUnit = function (input) {
     const result = input.match(/[a-zA-Z]+$/);
+    if (!result) return "invalid unit";
+
+    const unit = result[0].toLowerCase();
     const validUnits = ["gal", "l", "mi", "km", "lbs", "kg"];
-    const unit = result ? result[0].toLowerCase() : null;
 
     if (validUnits.includes(unit)) {
       return unit === "l" ? "L" : unit;
@@ -22,7 +24,7 @@ function ConvertHandler() {
     return "invalid unit";
   };
 
-  this.getReturnUnit = function(unit) {
+  this.getReturnUnit = function (unit) {
     const units = {
       gal: "L",
       L: "gal",
@@ -34,7 +36,7 @@ function ConvertHandler() {
     return units[unit];
   };
 
-  this.spellOutUnit = function(unit) {
+  this.spellOutUnit = function (unit) {
     const spelledOutUnits = {
       gal: "gallons",
       L: "liters",
@@ -46,7 +48,7 @@ function ConvertHandler() {
     return spelledOutUnits[unit];
   };
 
-  this.convert = function(num, unit) {
+  this.convert = function (num, unit) {
     const conversionRates = {
       gal: 3.78541,
       L: 1 / 3.78541,
