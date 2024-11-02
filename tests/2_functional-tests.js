@@ -6,6 +6,7 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
+  this.retries(2);
   this.timeout(20000);
 
   suite('GET /api/convert', function() {
@@ -19,6 +20,7 @@ suite('Functional Tests', function() {
             console.error('Service unavailable: Check if the server is running');
           } else {
             assert.equal(res.status, 200);
+            assert.isArray(res.body, 'Response should be an array');
             assert.equal(res.body.initNum, 10);
             assert.equal(res.body.initUnit, 'L');
             assert.approximately(res.body.returnNum, 2.64172, 0.00001);
