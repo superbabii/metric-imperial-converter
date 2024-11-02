@@ -1,20 +1,22 @@
 {
-  "dependencies": {
-    "experss": "^0.0.1-security",
-    "express": "^4.21.1"
-  },
   "name": "metric-imperial-converter",
   "version": "1.0.0",
+  "description": "",
   "main": "server.js",
-  "directories": {
-    "test": "tests"
-  },
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha tests"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.8.2"
+  }
 }
