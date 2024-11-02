@@ -6,7 +6,7 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
-  this.retries(2);
+  // this.retries(2);
   this.timeout(20000);
 
   suite('GET /api/convert', function() {
@@ -36,6 +36,7 @@ suite('Functional Tests', function() {
         .query({ input: '32g' })
         .end(function(err, res) {
           assert.equal(res.status, 200);
+          assert.isArray(res.body, 'Response should be an array');
           assert.equal(res.text, 'invalid unit');
           done();
         });
@@ -47,6 +48,7 @@ suite('Functional Tests', function() {
         .query({ input: '3/7.2/4kg' })
         .end(function(err, res) {
           assert.equal(res.status, 200);
+          assert.isArray(res.body, 'Response should be an array');
           assert.equal(res.text, 'invalid number');
           done();
         });
@@ -58,6 +60,7 @@ suite('Functional Tests', function() {
         .query({ input: '3/7.2/4kilomegagram' })
         .end(function(err, res) {
           assert.equal(res.status, 200);
+          assert.isArray(res.body, 'Response should be an array');
           assert.equal(res.text, 'invalid number and unit');
           done();
         });
@@ -69,6 +72,7 @@ suite('Functional Tests', function() {
         .query({ input: 'kg' })
         .end(function(err, res) {
           assert.equal(res.status, 200);
+          assert.isArray(res.body, 'Response should be an array');
           assert.equal(res.body.initNum, 1);
           assert.equal(res.body.initUnit, 'kg');
           assert.approximately(res.body.returnNum, 2.20462, 0.00001);
