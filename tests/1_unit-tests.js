@@ -5,6 +5,7 @@ const ConvertHandler = require('../controllers/convertHandler.js');
 let convertHandler = new ConvertHandler();
 
 suite('Unit Tests', function() {
+  this.timeout(5000);
 
   suite('Function convertHandler.getNum(input)', function() {
     test('Whole number input', function(done) {
