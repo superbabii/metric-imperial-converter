@@ -1,11 +1,10 @@
-export default function ConvertHandler() {
+function ConvertHandler() {
+  // Extracts and parses the numerical part of the input
   this.getNum = function(input) {
-    if (!input) return "invalid number";
-    
-    const result = input.match(/^[\d./]+/) || ["1"]; // Defaults to "1" if no number is provided
+    const result = input.match(/^[\d./]+/) || ["1"]; // Default to "1" if no number is provided
     const number = result[0];
 
-    // Handle multiple fractions (e.g., "3/2/3")
+    // Check if there are multiple fractions, which are invalid
     if ((number.match(/\//g) || []).length > 1) return "invalid number";
 
     try {
@@ -16,6 +15,7 @@ export default function ConvertHandler() {
     }
   };
 
+  // Extracts and validates the unit part of the input
   this.getUnit = function(input) {
     const result = input.match(/[a-zA-Z]+$/);
     if (!result) return "invalid unit";
@@ -27,7 +27,8 @@ export default function ConvertHandler() {
     return "invalid unit";
   };
 
-  this.getReturnUnit = function(unit) {
+  // Determines the return unit based on the initial unit
+  this.getReturnUnit = function(initUnit) {
     const units = {
       gal: "L",
       L: "gal",
@@ -36,9 +37,10 @@ export default function ConvertHandler() {
       lbs: "kg",
       kg: "lbs"
     };
-    return units[unit];
+    return units[initUnit];
   };
 
+  // Spells out the full name of each unit for better readability
   this.spellOutUnit = function(unit) {
     const spelledOutUnits = {
       gal: "gallons",
@@ -51,7 +53,8 @@ export default function ConvertHandler() {
     return spelledOutUnits[unit];
   };
 
-  this.convert = function(num, unit) {
+  // Performs the conversion based on the initial number and unit
+  this.convert = function(initNum, initUnit) {
     const conversionRates = {
       gal: 3.78541,
       L: 1 / 3.78541,
@@ -61,10 +64,17 @@ export default function ConvertHandler() {
       kg: 1 / 0.453592
     };
     
-    if (!conversionRates[unit]) return "invalid unit";
+    if (!conversionRates[initUnit]) return "invalid unit";
 
-    // Ensure result is rounded to exactly 5 decimal places
-    const result = parseFloat((num * conversionRates[unit]).toFixed(5));
+    // Ensures result is rounded to exactly 5 decimal places
+    const result = parseFloat((initNum * conversionRates[initUnit]).toFixed(5));
     return result;
   };
+
+  // Constructs a conversion string in a human-readable format
+  this.getString = function(initNum, initUnit, returnNum, returnUnit) {
+    return `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
+  };
 }
+
+module.exports = ConvertHandler;
