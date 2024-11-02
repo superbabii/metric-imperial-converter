@@ -9,6 +9,9 @@ router.get('/convert', (req, res) => {
   const initNum = convertHandler.getNum(input);
   const initUnit = convertHandler.getUnit(input);
 
+  console.log("Parsed initNum:", initNum);
+  console.log("Parsed initUnit:", initUnit);
+
   // Error handling for invalid number and unit
   if (initNum === "invalid number" && initUnit === "invalid unit") {
     return res.send("invalid number and unit");
