@@ -6,7 +6,7 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
-  this.timeout(100000);
+  this.timeout(10000);
 
   suite('GET /api/convert', function() {
 
