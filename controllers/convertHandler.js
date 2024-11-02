@@ -55,6 +55,7 @@ function ConvertHandler() {
       lbs: 0.453592,
       kg: 1 / 0.453592
     };
+    if (!conversionRates[unit]) return "invalid unit";
     return parseFloat((num * conversionRates[unit]).toFixed(5));
   };
 }
