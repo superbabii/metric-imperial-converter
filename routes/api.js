@@ -6,26 +6,26 @@ const convertHandler = new ConvertHandler();
 
 router.get('/api/convert', (req, res) => {
   const input = req.query.input;
-  const number = convertHandler.getNum(input);
-  const unit = convertHandler.getUnit(input);
+  const initNum = convertHandler.getNum(input);
+  const initUnit = convertHandler.getUnit(input);
 
-  if (number === "invalid number" && unit === "invalid unit") {
+  if (initNum === "invalid number" && initUnit === "invalid unit") {
     return res.json("invalid number and unit");
-  } else if (number === "invalid number") {
+  } else if (initNum === "invalid number") {
     return res.json("invalid number");
-  } else if (unit === "invalid unit") {
+  } else if (initUnit === "invalid unit") {
     return res.json("invalid unit");
   }
 
-  const returnNum = convertHandler.convert(number, unit);
-  const returnUnit = convertHandler.getReturnUnit(unit);
+  const returnNum = convertHandler.convert(initNum, initUnit);
+  const returnUnit = convertHandler.getReturnUnit(initUnit);
 
   res.json({
-    initNum: number,
-    initUnit: unit,
+    initNum,
+    initUnit,
     returnNum,
     returnUnit,
-    string: `${number} ${convertHandler.spellOutUnit(unit)} converts to ${returnNum} ${convertHandler.spellOutUnit(returnUnit)}`
+    string: `${initNum} ${convertHandler.spellOutUnit(initUnit)} converts to ${returnNum} ${convertHandler.spellOutUnit(returnUnit)}`
   });
 });
 
