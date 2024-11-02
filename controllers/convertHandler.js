@@ -1,8 +1,8 @@
 function ConvertHandler() {
-  this.getNum = function (input) {
+  this.getNum = function(input) {
     const result = input.match(/^[\d./]+/) || ["1"]; // Default to 1 if no number is provided
     const number = result[0];
-
+    
     try {
       const evaluated = eval(number); // Evaluates fractions like "1/2" or "2.5/6"
       return evaluated;
